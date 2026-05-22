@@ -6,7 +6,7 @@
 }
 
 html {
-    scroll-behavior: smooth; /* Makes clicking nav links smooth */
+    scroll-behavior: smooth;
 }
 
 body {
@@ -17,18 +17,42 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* NAVIGATION */
+/* NAVIGATION & HEADER */
+header {
+    border-bottom: 1px solid #eeeeee;
+    padding: 40px 20px;
+}
+
 nav {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px 20px;
-    border-bottom: 1px solid #eeeeee;
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
 .logo {
-    width: 150px; /* Adjust this number to make logo bigger/smaller */
-    margin-bottom: 20px;
+    width: 150px;
+    margin-bottom: 15px;
+}
+
+.site-title h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    line-height: 1.1;
+}
+
+.site-title h2 {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    margin-bottom: 0; /* overrides global h2 margin */
+    border: none;
+    padding: 0;
 }
 
 .nav-links {
@@ -62,10 +86,13 @@ main {
     border-bottom: 1px solid #eeeeee;
 }
 
+/* SECTION HEADERS */
 h2 {
-    font-family: Georgia, "Times New Roman", Times, serif; /* Elegant serif for headers */
-    font-size: 2rem;
-    font-weight: normal;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     text-align: center;
     margin-bottom: 40px;
 }
@@ -98,8 +125,9 @@ h2 {
 .poster {
     width: 100%;
     aspect-ratio: 2 / 3; /* Forces standard movie poster dimensions */
-    object-fit: cover;   /* Ensures image fills the space without stretching */
+    object-fit: cover;   /* Crops the image to fit the ratio perfectly */
     margin-bottom: 15px;
+    background-color: #f5f5f5; /* Light grey placeholder while loading */
 }
 
 .movie-item h3 {
@@ -114,7 +142,7 @@ h2 {
 
 .special-event {
     font-size: 0.85rem;
-    color: #666666; /* Grey text as requested */
+    color: #666666;
     margin-top: 2px;
     font-style: italic;
 }
