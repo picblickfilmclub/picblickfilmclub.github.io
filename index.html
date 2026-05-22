@@ -8,51 +8,28 @@
 </head>
 <body>
 
-    <nav>
-        <div class="logo-container">
-            <img src="logo.jpg" alt="Picblick Logo" class="logo">
-        </div>
-        <ul class="nav-links">
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#filmarchive">Filmarchive</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="logo.jpg" alt="Picblick Logo" class="logo">
+                <div class="site-title">
+                    <h1>PICBLICK</h1>
+                    <h2>FILMCLUB MUNICH</h2>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#filmarchive">Filmarchive</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#about">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <main>
-        <section id="about" class="section">
-            <h2>About Us</h2>
-            <div class="text-content">
-                <p>Founded in 2026 by two friends living in Munich, Picblick is a film club born out of a desire to share and learn about cinema in a fun, social environment. We provide an inclusive space for everyone—from casual moviegoers to dedicated cinephiles from around the world.</p>
-                <p>Our focus is on exploring all facets of cinema, ranging from mainstream blockbusters to niche international and arthouse films. What sets Picblick apart is our democratic approach: every member has the opportunity to pitch a film and 'sell' the club on why we should watch it. This establishes a personal connection to the movies we select, keeping everyone engaged and ensuring our archive is genuinely driven by our members' passions. Thanks to our diverse, international group, Picblick is the perfect place to discover new genres, unique styles, and cinematic voices you might never explore on your own.</p>
-            </div>
-        </section>
-
         <section id="filmarchive" class="section">
             <h2>Filmarchive</h2>
-            <div class="grid-container">
-                
-                <div class="movie-item">
-                    <img src="poster1.jpg" alt="Movie Title" class="poster">
-                    <h3>The Grand Budapest Hotel</h3>
-                    <p class="rating">Rating: 4.5/5</p>
-                    <p class="special-event">Wes Anderson Retrospective</p>
+            <div class="grid-container" id="movie-grid">
                 </div>
-
-                <div class="movie-item">
-                    <img src="poster2.jpg" alt="Movie Title" class="poster">
-                    <h3>Parasite</h3>
-                    <p class="rating">Rating: 5/5</p>
-                </div>
-
-                <div class="movie-item">
-                    <img src="poster3.jpg" alt="Movie Title" class="poster">
-                    <h3>The Shining</h3>
-                    <p class="rating">Rating: 4/5</p>
-                    <p class="special-event">Halloween Special</p>
-                </div>
-
-            </div>
         </section>
 
         <section id="contact" class="section">
@@ -66,11 +43,65 @@
                 </div>
             </div>
         </section>
+
+        <section id="about" class="section">
+            <h2>About Us</h2>
+            <div class="text-content">
+                <p>Founded in 2026 by two friends living in Munich, Picblick is a film club born out of a desire to share and learn about cinema in a fun, social environment. We provide an inclusive space for everyone—from casual moviegoers to dedicated cinephiles from around the world.</p>
+                <p>Our focus is on exploring all facets of cinema, ranging from mainstream blockbusters to niche international and arthouse films. What sets Picblick apart is our democratic approach: every member has the opportunity to pitch a film and 'sell' the club on why we should watch it. This establishes a personal connection to the movies we select, keeping everyone engaged and ensuring our archive is genuinely driven by our members' passions. Thanks to our diverse, international group, Picblick is the perfect place to discover new genres, unique styles, and cinematic voices you might never explore on your own.</p>
+            </div>
+        </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 Picblick Film Club. Munich, Germany.</p>
+        <p>Created by friends, for friends. Picblick Film Club, Munich.</p>
     </footer>
 
+    <script>
+        // --- PUT YOUR TMDB API KEY HERE ---
+        const TMDB_API_KEY = 'PASTE_YOUR_API_KEY_HERE';
+
+        // --- ADD YOUR MOVIES HERE ---
+        // Adding the 'year' helps the API find the exact right movie (e.g., avoiding remakes)
+        const movieArchive = [
+            { title: "The Grand Budapest Hotel", year: "2014", rating: "4.5/5", event: "Wes Anderson Retrospective" },
+            { title: "Parasite", year: "2019", rating: "5/5", event: "" },
+            { title: "The Shining", year: "1980", rating: "4/5", event: "Halloween Special" }
+        ];
+
+        const grid = document.getElementById('movie-grid');
+
+        async function fetchAndDisplayMovies() {
+            for (const movie of movieArchive) {
+                try {
+                    // Search TMDB for the movie
+                    const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(movie.title)}&year=${movie.year}`);
+                    const data = await response.json();
+                    
+                    let posterUrl = 'placeholder.jpg'; // Fallback if no poster is found
+                    if (data.results && data.results.length > 0 && data.results[0].poster_path) {
+                        // "original" fetches the highest resolution available
+                        posterUrl = `https://image.tmdb.org/t/p/original${data.results[0].poster_path}`;
+                    }
+
+                    // Create the HTML for the movie
+                    const movieHTML = `
+                        <div class="movie-item">
+                            <img src="${posterUrl}" alt="${movie.title} Poster" class="poster">
+                            <h3>${movie.title}</h3>
+                            <p class="rating">Rating: ${movie.rating}</p>
+                            ${movie.event ? `<p class="special-event">${movie.event}</p>` : ''}
+                        </div>
+                    `;
+                    grid.insertAdjacentHTML('beforeend', movieHTML);
+                } catch (error) {
+                    console.error('Error fetching data for', movie.title, error);
+                }
+            }
+        }
+
+        // Run the function when the page loads
+        fetchAndDisplayMovies();
+    </script>
 </body>
 </html>
