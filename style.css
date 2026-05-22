@@ -140,11 +140,16 @@ h2 {
     font-size: 0.95rem;
 }
 
-.special-event {
+.movie-date {
     font-size: 0.85rem;
     color: #666666;
     margin-top: 2px;
     font-style: italic;
+}
+
+.event-title {
+    font-weight: 600; /* Makes the special event text bolder */
+    color: #333333; /* Slightly darker to emphasize the bold text */
 }
 
 /* CONTACT LINKS */
