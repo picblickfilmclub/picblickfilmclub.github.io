@@ -169,26 +169,14 @@ h2 {
 /* RATING BADGE */
 .rating {
     display: inline-block;
-    background-color: #000000; /* Solid black background */
-    color: #ffffff; /* White text */
+    background-color: #940000; /* Dark Red Pill */
+    color: #FFCEAE; /* Tan Text */
     padding: 4px 12px;
     font-size: 0.85rem;
     font-weight: bold;
-    border-radius: 20px; /* Makes it look like a sleek pill/badge */
+    border-radius: 20px; 
     margin: 10px 0;
     letter-spacing: 1px;
-}
-
-.movie-date {
-    font-size: 0.85rem;
-    color: #666666;
-    margin-top: 2px;
-    font-style: italic;
-}
-
-.event-title {
-    font-weight: 600; /* Makes the special event text bolder */
-    color: #333333; /* Slightly darker to emphasize the bold text */
 }
 
 /* CONTACT LINKS */
@@ -201,28 +189,29 @@ h2 {
 
 .contact-links a {
     text-decoration: none;
-    color: #000000;
-    border: 1px solid #000000;
+    color: #940000;
+    border: 2px solid #940000;
     padding: 10px 20px;
     font-size: 0.9rem;
+    text-weight: bold;
     text-transform: uppercase;
     transition: all 0.3s ease;
 }
 
 .contact-links a:hover {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #940000;
+    color: #FFCEAE;
 }
 
 .disabled-link {
-    color: #999999 !important;
-    border-color: #999999 !important;
+    color: #F59386 !important;
+    border-color: #F59386 !important;
     cursor: default;
 }
 
 .disabled-link:hover {
     background-color: transparent !important;
-    color: #999999 !important;
+    color: #F59386 !important;
 }
 
 /* FOOTER */
@@ -230,5 +219,6 @@ footer {
     text-align: center;
     padding: 40px 20px;
     font-size: 0.85rem;
-    color: #666666;
+    color: #940000;
+    background-color: #F59386; /* Light Red Footer Block */
 }
