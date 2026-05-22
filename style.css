@@ -111,6 +111,12 @@ h2 {
     margin-bottom: 20px;
 }
 
+.intro-bold {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+}
+
 .center-text {
     text-align: center;
 }
