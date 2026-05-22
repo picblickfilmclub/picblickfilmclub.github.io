@@ -115,6 +115,7 @@ h2 {
     font-weight: bold;
     text-transform: uppercase;
     font-size: 1.2rem;
+    text-align: center;
 }
 
 .center-text {
@@ -272,4 +273,16 @@ footer {
     font-size: 1rem;
     line-height: 1.5;
     opacity: 0.9;
+}
+
+/* Styles the WhatsApp link inside the steps */
+.step p a {
+    color: #940000;
+    font-weight: bold;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.step p a:hover {
+    color: #FF4900;
 }
