@@ -7,6 +7,7 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 body {
@@ -15,6 +16,12 @@ body {
     color: #940000; /* Dark Red Text */
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+footer p {
+    margin: 0;
 }
 
 /* NAVIGATION & HEADER */
