@@ -154,10 +154,14 @@ h2 {
     margin-bottom: 5px;
 }
 
-/* SORTING CONTROLS */
+/* SORTING & SEARCH CONTROLS */
 .controls {
     text-align: center;
     margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
 }
 
 .controls label {
@@ -165,19 +169,40 @@ h2 {
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-right: 10px;
-    font-weight: 500;
+    font-weight: bold;
+    color: #940000;
 }
 
-.controls select {
-    padding: 8px 12px;
+.controls select,
+.controls input {
+    padding: 10px 15px;
     font-family: inherit;
-    font-size: 0.85rem;
-    border: 1px solid #000000;
-    background-color: #ffffff;
-    color: #000000;
-    cursor: pointer;
-    text-transform: uppercase;
+    font-size: 0.95rem;
+    border: 2px solid #940000;
+    background-color: transparent; /* Lets the tan background show through */
+    color: #940000;
     outline: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    width: 300px;
+    max-width: 100%; /* Keeps it responsive on mobile screens */
+}
+
+/* Make the placeholder text slightly lighter red */
+.controls input::placeholder {
+    color: rgba(148, 0, 0, 0.6);
+}
+
+/* Hover and Focus effects */
+.controls select:hover,
+.controls input:focus {
+    background-color: #940000;
+    color: #FFCEAE;
+}
+
+.controls select:hover option {
+    background-color: #FFCEAE;
+    color: #940000;
 }
 
 /* RATING BADGE */
