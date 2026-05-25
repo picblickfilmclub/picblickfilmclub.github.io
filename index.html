@@ -65,21 +65,17 @@
             </div>
         </section>
 
-        <section id="filmarchive" class="section">
-            <h2>Film Archive</h2>
+       <section id="filmarchive" class="section">
+            <h2>Recently Watched</h2>
             
-            <div class="controls">
-                <label for="sort-select">Sort by:</label>
-                <select id="sort-select">
-                    <option value="date-desc">Newest to Oldest</option>
-                    <option value="date-asc">Oldest to Newest</option>
-                    <option value="rating-desc">Highest Rated</option>
-                    <option value="rating-asc">Lowest Rated</option>
-                </select>
-            </div>
-
             <div class="grid-container" id="movie-grid">
                 </div>
+
+            <div class="center-text" style="margin-top: 40px;">
+                <div class="contact-links">
+                    <a href="archive.html">View Full Archive</a>
+                </div>
+            </div>
         </section>
 
         <section id="about" class="section">
@@ -111,7 +107,7 @@
 
     <script>
         // --- PUT YOUR TMDB API KEY HERE ---
-        const TMDB_API_KEY = 'd668617bc36509c65b03d5f395f1cf01';
+        const TMDB_API_KEY = 'PASTE_YOUR_API_KEY_HERE';
 
         // --- ADD YOUR MOVIES HERE ---
         const movieArchive = [
@@ -123,24 +119,15 @@
             { title: "Taipei Story", year: "1985", rating: "3.57/5", event: "", date: "20.09.2025" }
         ];
 
-        let loadedMovies = []; // This will store the movies + their poster images
-        
+        let loadedMovies = []; 
         const grid = document.getElementById('movie-grid');
-        const sortSelect = document.getElementById('sort-select');
 
-        // Helper function to turn "DD.MM.YYYY" into a real date for sorting
         function parseDate(dateStr) {
             const [day, month, year] = dateStr.split('.');
             return new Date(`${year}-${month}-${day}`).getTime();
         }
 
-        // Helper function to turn "4.5/5" into the number 4.5 for sorting
-        function parseRating(ratingStr) {
-            return parseFloat(ratingStr.split('/')[0]);
-        }
-
         async function fetchMoviesData() {
-            // 1. Fetch all posters from the API just once
             for (const movie of movieArchive) {
                 try {
                     const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(movie.title)}&year=${movie.year}`);
@@ -151,37 +138,24 @@
                         posterUrl = `https://image.tmdb.org/t/p/original${data.results[0].poster_path}`;
                     }
 
-                    // Save the movie info plus the poster URL to our array
                     loadedMovies.push({ ...movie, posterUrl });
                 } catch (error) {
                     console.error('Error fetching data for', movie.title, error);
                 }
             }
             
-            // 2. Once everything is downloaded, sort and display them
-            sortAndRender();
+            // Automatically sort by newest date
+            loadedMovies.sort((a, b) => parseDate(b.date) - parseDate(a.date));
+            
+            // Slice the array to only keep the first 3 movies
+            const top3Movies = loadedMovies.slice(0, 3);
+            renderGrid(top3Movies);
         }
 
-        function sortAndRender() {
-            const sortType = sortSelect.value;
+        function renderGrid(moviesToRender) {
+            grid.innerHTML = ''; 
             
-            // Sort the array based on what the user selected
-            loadedMovies.sort((a, b) => {
-                if (sortType === 'date-desc') return parseDate(b.date) - parseDate(a.date);
-                if (sortType === 'date-asc') return parseDate(a.date) - parseDate(b.date);
-                if (sortType === 'rating-desc') return parseRating(b.rating) - parseRating(a.rating);
-                if (sortType === 'rating-asc') return parseRating(a.rating) - parseRating(b.rating);
-                return 0;
-            });
-
-            // Display the sorted grid
-            renderGrid();
-        }
-
-        function renderGrid() {
-            grid.innerHTML = ''; // Clear the grid first
-            
-            loadedMovies.forEach(movie => {
+            moviesToRender.forEach(movie => {
                 let dateAndEventHTML = `<p class="movie-date">${movie.date}</p>`;
                 if (movie.event) {
                     dateAndEventHTML = `<p class="movie-date"><span class="event-title">${movie.event}</span> &mdash; ${movie.date}</p>`;
@@ -199,10 +173,6 @@
             });
         }
 
-        // Listen for when the user changes the dropdown menu
-        sortSelect.addEventListener('change', sortAndRender);
-
-        // Start the whole process when the page loads
         fetchMoviesData();
     </script>
 </body>
