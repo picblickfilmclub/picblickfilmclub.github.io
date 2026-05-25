@@ -103,6 +103,10 @@ main {
     border-bottom: 2px solid #F59386; /* Light Red Divider */
 }
 
+.section:last-of-type {
+    border-bottom: none;
+}
+
 /* SECTION HEADERS */
 h2 {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
